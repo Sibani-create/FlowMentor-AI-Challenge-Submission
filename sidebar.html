@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FlowMentor</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-theme="light"> 
+
+  <div class="header">
+    <h3>FlowMentor AI</h3>
+    <button id="theme-toggle" title="Toggle dark mode"></button>
+  </div>
+
+  <div class="settings-area">
+    <label for="language-select">Translate to:</label>
+    <select id="language-select">
+      <option value="English">English</option>
+      <option value="Spanish">Spanish</option>
+      <option value="Hindi">Hindi</option>
+      <option value="French">French</option>
+      <option value="German">German</option>
+      <option value="Japanese">Japanese</option>
+      <option value="Mandarin Chinese">Chinese</option>
+    </select>
+  </div>
+  
+  <div id="chat-log">
+    <div class="model-message">
+      <p>Welcome! To start, please describe your project, paste your code, or ask me a question.</p>
+    </div>
+  </div>
+  
+  <div id="loader" class="hidden">
+    <div class="spinner"></div>
+  </div>
+  
+  <div class="input-area">
+    <textarea id="chat-input" placeholder="Ask a follow-up question..." rows="1"></textarea>
+    <button id="send-button">Send</button>
+  </div>
+  
+  <script src="sidebar.js"></script>
+</body>
+</html>
