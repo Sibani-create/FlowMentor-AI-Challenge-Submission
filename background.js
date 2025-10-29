@@ -1,63 +1,112 @@
-// This code opens the sidebar when you click the "F" icon
+// Opens the sidebar when you click the extension icon
 chrome.action.onClicked.addListener((tab) => {
+  // Clear any pending task when opening via icon
+  chrome.storage.local.remove(['task', 'newCodeSnippet', 'pageQuestion', 'pageContext', 'pageType', 'pageHtml']);
   chrome.sidePanel.open({ tabId: tab.id });
 });
 
-// This function will be injected into the page to get its text
+// Function injected to get page text content
 function getPageContent() {
   const main = document.querySelector('main');
   if (main) return main.innerText;
-  return document.body.innerText;
+  const article = document.querySelector('article'); // Try article tag
+  if (article) return article.innerText;
+  return document.body.innerText || "Page has no text content."; // Fallback to body
 }
 
-// This gets the page's entire HTML for analysis
+
+// Function injected to get page HTML source
 function getPageHtml() {
-  return document.documentElement.outerHTML;
+  return document.documentElement.outerHTML || "Could not get HTML source.";
 }
 
-// This runs ONCE when the extension is installed
+// Create context menus when the extension is installed
 chrome.runtime.onInstalled.addListener(() => {
+  // 1. Explain Code (formerly Ask about Code)
   chrome.contextMenus.create({
-    id: "askFlowMentor",
-    title: "FlowMentor: Ask about this code",
+    id: "explainCode",
+    title: "FlowMentor: Explain this code (with flowchart)",
     contexts: ["selection"]
   });
+
+  // 2. Debug Code (with page context)
+  chrome.contextMenus.create({
+    id: "debugCode",
+    title: "FlowMentor: Debug this (with page context)",
+    contexts: ["selection"]
+  });
+
+  // 3. Get Code
   chrome.contextMenus.create({
     id: "getCodeFlowMentor",
     title: "FlowMentor: Get code for this",
     contexts: ["selection"]
   });
+
+  // 4. Ask about Selection (with page context) - Renamed slightly
   chrome.contextMenus.create({
-    id: "pageContextMentor",
-    title: "FlowMentor: Ask about this (with page context)",
+    id: "askAboutSelection",
+    title: "FlowMentor: Ask about selection (with page context)",
     contexts: ["selection"]
   });
+
+  // 5. Translate Selection
   chrome.contextMenus.create({
     id: "translateFlowMentor",
     title: "FlowMentor: Translate this",
     contexts: ["selection"]
   });
-  
+
+  // 6. NEW: Open Chat with Page Context
   chrome.contextMenus.create({
-    id: "analyzeTechStack",
-    title: "FlowMentor: Analyze this page's tech",
-    contexts: ["page"] // Triggers on the page itself
+    id: "openChatWithContext",
+    title: "FlowMentor: Chat about this page",
+    contexts: ["page"] // Triggers anywhere on the page
   });
+
+  // REMOVED: "analyzeTechStack" is now a button in the sidebar
 });
 
-// This listens for when the user CLICKS ANY menu item
+// Listen for context menu clicks
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-  
-  // --- Task 1: Debug Code ---
-  if (info.menuItemId === "askFlowMentor" && info.selectionText) {
+
+  // Task: Explain Code
+  if (info.menuItemId === "explainCode" && info.selectionText) {
     await chrome.sidePanel.open({ tabId: tab.id });
     await chrome.storage.local.set({
-      task: 'debug',
+      task: 'explain',
       newCodeSnippet: info.selectionText
     });
   }
 
-  // --- Task 2: Get Component Code ---
+  // Task: Debug Code (gets selection + page text)
+  if (info.menuItemId === "debugCode" && info.selectionText) {
+    await chrome.sidePanel.open({ tabId: tab.id });
+    try {
+        const results = await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: getPageContent,
+           world: "MAIN"
+        });
+        const pageContext = results?.[0]?.result || "No page context found.";
+        await chrome.storage.local.set({
+          task: 'debug',
+          newCodeSnippet: info.selectionText, // The error/code
+          pageContext: pageContext
+        });
+    } catch (e) {
+        console.error("Error getting page context for debug:", e);
+        // Proceed even if context fails, but send error status
+         await chrome.storage.local.set({
+          task: 'debug',
+          newCodeSnippet: info.selectionText,
+          pageContext: `Error retrieving context: ${e.message}`
+        });
+    }
+  }
+
+
+  // Task: Get Code
   if (info.menuItemId === "getCodeFlowMentor" && info.selectionText) {
     await chrome.sidePanel.open({ tabId: tab.id });
     await chrome.storage.local.set({
@@ -66,29 +115,38 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     });
   }
 
-  // --- Task 3: Page-Aware Assistant ---
-  if (info.menuItemId === "pageContextMentor" && info.selectionText) {
+  // Task: Ask about Selection (gets selection + page text)
+  if (info.menuItemId === "askAboutSelection" && info.selectionText) {
     await chrome.sidePanel.open({ tabId: tab.id });
-
-    const [result] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: getPageContent
-    });
-
-    let pageType = 'general';
-    if (tab.url && tab.url.includes("youtube.com/watch")) {
-      pageType = 'youtube';
-    }
-
-    await chrome.storage.local.set({
-      task: 'pageContext',
-      pageQuestion: info.selectionText, 
-      pageContext: result ? result.result : "Could not read page content.",
-      pageType: pageType 
-    });
+     try {
+        const results = await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: getPageContent,
+          world: "MAIN"
+        });
+        const pageContext = results?.[0]?.result || "Could not read page content.";
+        let pageType = 'general';
+        if (tab.url && tab.url.includes("youtube.com/watch")) {
+          pageType = 'youtube';
+        }
+        await chrome.storage.local.set({
+          task: 'pageContext', // Still uses the pageContext task logic
+          pageQuestion: info.selectionText, // The user's specific question (the highlight)
+          pageContext: pageContext,
+          pageType: pageType
+        });
+     } catch (e) {
+        console.error("Error getting page context for ask:", e);
+         await chrome.storage.local.set({
+          task: 'pageContext',
+          pageQuestion: info.selectionText,
+          pageContext: `Error retrieving context: ${e.message}`,
+          pageType: 'general'
+        });
+     }
   }
 
-  // --- Task 4: Translate Task ---
+  // Task: Translate Selection
   if (info.menuItemId === "translateFlowMentor" && info.selectionText) {
     await chrome.sidePanel.open({ tabId: tab.id });
     await chrome.storage.local.set({
@@ -97,18 +155,32 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     });
   }
 
-  // --- Task 5: Analyze Tech Stack (FIXED) ---
-  if (info.menuItemId === "analyzeTechStack") {
+  // Task: Open Chat with Page Context (gets only page text)
+  if (info.menuItemId === "openChatWithContext") {
     await chrome.sidePanel.open({ tabId: tab.id });
-
-    const [result] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id }, // <-- This is now correct (was tab.g)
-      func: getPageHtml 
-    });
-
-    await chrome.storage.local.set({
-      task: 'analyzeTech',
-      pageHtml: result ? result.result : "Could not read page HTML."
-    });
+     try {
+        const results = await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: getPageContent,
+          world: "MAIN"
+        });
+        const pageContext = results?.[0]?.result || "Could not load page content.";
+        let pageType = 'general';
+         if (tab.url && tab.url.includes("youtube.com/watch")) {
+          pageType = 'youtube';
+        }
+        await chrome.storage.local.set({
+          task: 'pageChat', // New task type
+          pageContext: pageContext,
+          pageType: pageType
+        });
+     } catch (e) {
+         console.error("Error getting page context for chat:", e);
+          await chrome.storage.local.set({
+            task: 'pageChat',
+            pageContext: `Error retrieving context: ${e.message}`,
+            pageType: 'general'
+          });
+     }
   }
 });

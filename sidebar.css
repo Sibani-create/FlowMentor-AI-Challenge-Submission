@@ -1,117 +1,210 @@
 /* --- 1. THEME VARIABLES --- */
-:root {
-  --bg-color: #f9f9f9;
-  --text-color: #333;
-  --text-color-light: #555;
+:root { /* Light Theme (Default) */
+  --bg-color: #ffffff;
+  --text-color: #202124;
+  --text-color-light: #5f6368;
   --title-color: #1a73e8;
-  --border-color: #e0e0e0;
-  --input-bg: #ffffff;
+  --border-color: #dadce0;
+  --input-bg: #f1f3f4;
   --bubble-model-bg: #f1f3f4;
   --bubble-user-bg: #1a73e8;
-  --bubble-user-text: white;
-  --code-bg: #2d2d2d;
-  --code-text: #f1f1f1;
-  --spinner-light: #f3f3f3;
+  --bubble-user-text: #ffffff;
+  --code-bg: #202124;
+  --code-text: #e8eaed; /* Text color inside code blocks */
+  --strong-text-color: #0d47a1; /* General strong text color (outside code blocks) */
+  --spinner-light: #f1f3f4;
   --spinner-dark: #1a73e8;
+  --button-bg: #e8f0fe;
+  --button-text: #1967d2;
+  --button-hover-bg: #d2e3fc;
 }
 
 body[data-theme="dark"] {
-  --bg-color: #1e1e1e;
-  --text-color: #f1f1f1;
-  --text-color-light: #aaa;
-  --title-color: #6a9eff;
-  --border-color: #444;
-  --input-bg: #2d2d2d;
-  --bubble-model-bg: #333;
-  --bubble-user-bg: #3c6fbd;
-  --bubble-user-text: white;
+  --bg-color: #202124;
+  --text-color: #e8eaed;
+  --text-color-light: #9aa0a6;
+  --title-color: #8ab4f8;
+  --border-color: #5f6368;
+  --input-bg: #3c4043;
+  --bubble-model-bg: #3c4043;
+  --bubble-user-bg: #8ab4f8;
+  --bubble-user-text: #202124;
   --code-bg: #1a1a1a;
-  --code-text: #f1f1f1;
-  --spinner-light: #555;
-  --spinner-dark: #6a9eff;
+  --code-text: #e8eaed;
+  --strong-text-color: #bbdefb;
+  --spinner-light: #5f6368;
+  --spinner-dark: #8ab4f8;
+  --button-bg: #3c4043;
+  --button-text: #8ab4f8;
+  --button-hover-bg: #5f6368;
+}
+
+body[data-theme="purple"] {
+  --bg-color: #f5f3f9;
+  --text-color: #4a3f55;
+  --text-color-light: #6e637a;
+  --title-color: #6a00de;
+  --border-color: #d1c9d9;
+  --input-bg: #ffffff;
+  --bubble-model-bg: #ebe4f2;
+  --bubble-user-bg: #6a00de;
+  --bubble-user-text: #ffffff;
+  --code-bg: #2e2a33;
+  --code-text: #f0e8f9;
+  --strong-text-color: #ab47bc;
+  --spinner-light: #ebe4f2;
+  --spinner-dark: #6a00de;
+  --button-bg: #e5d9f2;
+  --button-text: #6a00de;
+  --button-hover-bg: #d1c9d9;
+}
+
+body[data-theme="synthwave"] {
+  --bg-color: #2a2139;
+  --text-color: #f4eee4;
+  --text-color-light: #b4aded;
+  --title-color: #ff7ac6;
+  --border-color: #4f3a65;
+  --input-bg: #3b2d53;
+  --bubble-model-bg: #3b2d53;
+  --bubble-user-bg: #ff7ac6;
+  --bubble-user-text: #2a2139;
+  --code-bg: #1e152a;
+  --code-text: #f4eee4;
+  --strong-text-color: #00e0e0;
+  --spinner-light: #4f3a65;
+  --spinner-dark: #ff7ac6;
+  --button-bg: #4f3a65;
+  --button-text: #ff7ac6;
+  --button-hover-bg: #3b2d53;
+}
+
+body[data-theme="minty"] {
+  --bg-color: #f0fff4;
+  --text-color: #2f4f4f;
+  --text-color-light: #5f9ea0;
+  --title-color: #3cb371;
+  --border-color: #adebad;
+  --input-bg: #ffffff;
+  --bubble-model-bg: #e0eee0;
+  --bubble-user-bg: #3cb371;
+  --bubble-user-text: #ffffff;
+  --code-bg: #1e3c30;
+  --code-text: #e0f8e0;
+  --strong-text-color: #2e8b57;
+  --spinner-light: #e0eee0;
+  --spinner-dark: #3cb371;
+  --button-bg: #c1e9c1;
+  --button-text: #2e8b57;
+  --button-hover-bg: #adebad;
 }
 
 /* --- 2. GENERAL SETUP --- */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 12px;
-  width: 320px;
+  padding: 15px;
+  width: 350px;
   box-sizing: border-box;
   margin: 0;
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.2s, color 0.2s;
-  /* Larger base font size */
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -5px; 
+  margin-bottom: 12px;
+  gap: 10px;
+  min-height: 28px;
 }
 
-h3 {
-  text-align: center;
+h2 { /* Title Styling */
   margin: 0;
   color: var(--title-color);
-  /* Explicitly set font size */
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  flex-grow: 0; /* Let controls determine width push */
+  flex-shrink: 0;
+  margin-right: auto;
 }
 
-/* Complete restyle of the theme button */
-#theme-toggle {
-  background-color: var(--bubble-model-bg);
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+#theme-select,
+#language-select {
+  background-color: var(--input-bg);
   border: 1px solid var(--border-color);
-  font-size: 12px; /* Normal font size */
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  padding: 4px 8px; /* Make it look like a button */
+  padding: 5px 8px;
   border-radius: 6px;
   color: var(--text-color);
-}
-#theme-toggle:hover {
-  opacity: 0.8;
+  flex-shrink: 0;
 }
 
-.settings-area {
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: stretch; /* Make buttons equal height if text wraps */
+}
+
+.action-buttons button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-grow: 1;
   text-align: center;
-  margin-bottom: 10px;
-  /* Slightly larger font */
-  font-size: 13px;
-  color: var(--text-color-light);
+  white-space: normal; /* Allow text wrapping */
+  line-height: 1.3; /* Adjust line height for wrapped text */
+  min-height: 32px; /* Ensure a minimum height for alignment */
+  display: flex; /* Use flex to center text vertically if needed */
+  align-items: center;
+  justify-content: center;
 }
-#language-select {
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 2px;
-  /* Slightly larger font */
-  font-size: 13px;
-  background-color: var(--input-bg);
-  color: var(--text-color);
+.action-buttons button:hover {
+  background-color: var(--button-hover-bg);
 }
+
 
 /* --- 3. CHAT LOG AREA --- */
 #chat-log {
   position: absolute;
-  top: 80px; 
-  bottom: 70px;
-  left: 12px;
-  right: 12px;
-  overflow-y: auto; 
-  padding: 10px 0;
+  top: 105px;
+  bottom: 75px;
+  left: 15px;
+  right: 15px;
+  overflow-y: auto;
+  padding: 10px 5px 10px 0;
   display: flex;
   flex-direction: column;
 }
 
 .model-message, .user-message {
-  padding: 8px 12px;
+  padding: 12px 16px;
   border-radius: 18px;
-  margin-bottom: 10px;
-  max-width: 85%;
-  line-height: 1.4;
+  margin-bottom: 12px;
+  max-width: 90%;
+  line-height: 1.6;
   word-wrap: break-word;
   transition: background-color 0.2s;
 }
@@ -126,7 +219,7 @@ h3 {
   background-color: var(--bubble-user-bg);
   color: var(--bubble-user-text);
   align-self: flex-end;
-  margin-left: 15%;
+  margin-left: 10%;
 }
 
 /* --- 4. INPUT AREA --- */
@@ -135,8 +228,8 @@ h3 {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px 12px;
-  background-color: var(--bg-color); 
+  padding: 12px 15px;
+  background-color: var(--bg-color);
   border-top: 1px solid var(--border-color);
   display: flex;
   align-items: flex-start;
@@ -146,13 +239,13 @@ h3 {
 #chat-input {
   flex-grow: 1;
   border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 10px 15px;
+  border-radius: 22px;
+  padding: 12px 18px;
   font-family: inherit;
-  margin-right: 8px;
+  margin-right: 10px;
   resize: none;
-  font-size: 14px;
-  line-height: 1.3;
+  font-size: 16px;
+  line-height: 1.5;
   max-height: 100px;
   background-color: var(--input-bg);
   color: var(--text-color);
@@ -160,28 +253,25 @@ h3 {
 
 #send-button {
   width: auto;
-  padding: 10px 15px;
-  background-color: var(--bubble-user-bg); 
+  padding: 12px 18px;
+  background-color: var(--bubble-user-bg);
   color: var(--bubble-user-text);
   border: none;
-  border-radius: 20px;
+  border-radius: 22px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   align-self: center;
 }
-#send-button:hover {
-  opacity: 0.8;
-}
-#send-button:disabled {
-  background-color: #ccc;
-}
+#send-button:hover { opacity: 0.8; }
+#send-button:disabled { background-color: #ccc; cursor: not-allowed; opacity: 0.6; }
 
 /* --- 5. LOADER --- */
 #loader {
   position: fixed;
-  bottom: 80px; 
-  left: 20px;
+  bottom: 85px;
+  left: 25px;
+  z-index: 10;
 }
 .spinner {
   border: 3px solid var(--spinner-light);
@@ -192,58 +282,61 @@ h3 {
   animation: spin 1s linear infinite;
   margin: 0 auto 10px;
 }
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.hidden {
-  display: none;
-}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.hidden { display: none; }
 
 /* --- 6. AI CONTENT STYLES --- */
 #chat-log h4 {
-  margin-top: 16px;
-  margin-bottom: 8px;
+  margin-top: 20px;
+  margin-bottom: 12px;
   color: var(--title-color);
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 4px;
+  padding-bottom: 8px;
+  font-weight: 600;
+  font-size: 1.1em;
 }
-#chat-log ul, #chat-log ol {
-  padding-left: 20px;
-  margin-top: 0;
-}
-#chat-log li {
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-#chat-log p {
-  margin-top: 0;
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-#chat-log strong {
-  color: var(--title-color);
+#chat-log ul, #chat-log ol { padding-left: 25px; margin-top: 5px; }
+#chat-log li { margin-bottom: 12px; line-height: 1.6; }
+#chat-log p { margin-top: 0; margin-bottom: 14px; line-height: 1.6; }
+
+/* General strong tag color */
+.model-message strong {
+  color: var(--strong-text-color);
+  font-weight: 600;
 }
 
 .model-message pre {
   background-color: var(--code-bg);
   color: var(--code-text);
-  padding: 12px;
+  padding: 16px;
   border-radius: 8px;
-  overflow-x: auto; 
-  white-space: pre; 
-  font-size: 13px;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 14px;
+  line-height: 1.6;
 }
-.model-message code {
+.model-message pre code {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.model-message pre strong {
+  color: var(--code-text); /* Use code text color for contrast */
+  font-weight: bold; /* Ensure it's still visibly bold */
+}
+
+
+.model-message code { /* General code, not in pre */
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  background-color: transparent; 
+  background-color: transparent;
   padding: 0;
 }
+
 .model-message p > code, .model-message li > code {
   background-color: var(--bubble-model-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
-  padding: 2px 4px;
+  padding: 3px 6px;
   border-radius: 4px;
   font-size: 0.9em;
+  word-wrap: break-word;
 }

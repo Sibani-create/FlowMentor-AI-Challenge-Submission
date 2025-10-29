@@ -1,6 +1,6 @@
 # FlowMentor AI
 
-**Your Real-Time AI Mentor for Every Student and Beginner**
+**Real-Time AI Mentor for Every Student and Beginner**
 
 This project is a submission for the **Google Chrome Built-in AI Challenge 2025**, competing in the **Best Hybrid AI Application** category.
 
@@ -8,102 +8,107 @@ This project is a submission for the **Google Chrome Built-in AI Challenge 2025*
 
 ## The Problem & Our Solution
 
-For beginner coders, students, and self-learners, the journey is often filled with barriers. You might be:
-* Stuck on a project, unsure of the architecture or the "next step."
-* Frustrated with the "copy-paste hustle" of juggling a chatbot, your code, and the webpage you're learning from.
-* Facing a language barrier on a tutorial or documentation.
-* Looking at a complex piece of code on a webpage and having no idea what it does.
+For beginner coders, students, and self-learners, navigating the web to learn new skills is often fragmented and frustrating. Common hurdles include:
+* Getting stuck on project architecture or not knowing the next implementation step.
+* The tedious "copy-paste hustle" between tutorials,multiple tabs and separate AI chatbots, which breaks focus.
+* Encountering language barriers in documentation or learning materials.
+* Struggling to understand complex code snippets found online.
 
-**FlowMentor AI was built to solve these exact problems.**
+**FlowMentor AI tackles these challenges head-on.**
 
-Our mission is to provide an AI mentor that lives in your browser, helping you in real-time. It's designed to break down barriers for beginners by:
-* Providing a **conversational project mentor** that gives you a full architectural plan, not just code snippets.
-* Eliminating the copy-paste hustle with a **powerful 5-tool right-click menu**.
-* Helping you **understand any code** on any page in simple, beginner-friendly language.
-* **Breaking language barriers** with an instant-access translator.
-* **Guessing the tech stack** of any website to help you learn how it's built.
+Its mission is to provide an intelligent, real-time AI mentor directly within the Chrome browser. It breaks down learning barriers by:
+* Offering a **conversational project planning assistant** that provides architectural overviews and step-by-step guidance.
+* Integrating seamlessly with browsing via a powerful **6-tool right-click context menu**, eliminating context switching.
+* Providing **on-demand page analysis** through intuitive sidebar buttons (Summarize, Flowchart, Analyze Tech).
+* Explaining **any code snippet** in simple terms, complete with text-based logic flowcharts.
+* Offering **context-aware debugging** that provides corrected code and clear explanations.
+* **Breaking language barriers** with an integrated translation tool.
 
-We use a **Hybrid AI Strategy** (leveraging the Google Gemini API) to ensure these powerful tools are accessible to *all users*, regardless of their device's hardware.
+FlowMentor AI utilizes a **Hybrid AI Strategy**, leveraging the powerful **Google Gemini API** to ensure these features are accessible and performant for **all users**, irrespective of their local hardware capabilities.
 
 ## Key Features
 
-* **Conversational Project Mentor** with "Text-Based Flowchart" Architecture Planning
-* **5-Tool Right-Click Context Menu**
-* **Website Tech Stack Analyzer** (Frontend & Backend)
-* **Beginner-Friendly Code Debugger**
-* **AI-Powered Code Generator**
-* **Page-Aware Summarizer** (for articles and YouTube videos)
-* **Multi-Language Translator**
-* **Polished UI** with persistent Light & Dark Modes
+* **Conversational Project Mentor:** Analyzes ideas, generates text-based architecture diagrams & step-by-step plans, maintains context.
+* **6-Tool Right-Click Menu:** Explain Code (w/ Flowchart), Debug Code (w/ Context), Get Code, Ask About Selection (w/ Context), Translate, Chat About Page.
+* **3 Sidebar Action Buttons:** Analyze Page Tech, Summarize Page, Generate Page (Conceptual) Flowchart.
+* **Intelligent Debugging:** Provides corrected code and pinpoints fixes.
+* **Text-Based Flowcharts:** Visualizes code logic and page concepts using simple text diagrams.
+* **Multi-Language Translation:** Supports several languages including Odia.
+* **Customizable UI:** Features multiple themes (Light, Dark, Purple, Synthwave, Minty) with persistent selection.
 
 ## Prerequisites
 
 To run this extension, you will need:
 1.  The Google Chrome browser.
-2.  A **Google Gemini API Key**. You can get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+2.  A **Google Gemini API Key**. A free key can be obtained from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
 ## Installation (Instructions for Judges)
 
 1.  **Download:** Click the green `<> Code` button on this repository and select `Download ZIP`.
-2.  **Unzip:** Unzip the downloaded folder to a location you'll remember.
+2.  **Unzip:** Extract the downloaded folder to a convenient location.
 3.  **Add Your API Key:**
-    * Open the unzipped folder and edit the `sidebar.js` file.
-    * Find the line: `const YOUR_API_KEY = "";`
-    * Paste your Gemini API key inside the quotes: `const YOUR_API_KEY = "PASTE_YOUR_GEMINI_API_KEY_HERE";`
+    * Open the extracted folder and edit the `sidebar.js` file using a text editor.
+    * Locate the line: `const YOUR_API_KEY = "";`
+    * Paste your Gemini API key between the quotes: `const YOUR_API_KEY = "YOUR_KEY_HERE";`
     * Save and close the file.
 4.  **Load the Extension:**
-    * Open Chrome and go to the URL: `chrome://extensions`.
-    * Enable **"Developer mode"** (using the toggle in the top-right).
-    * Click the **"Load unpacked"** button (in the top-left).
+    * Open Chrome and navigate to `chrome://extensions`.
+    * Enable **"Developer mode"** (using the toggle, usually in the top-right).
+    * Click the **"Load unpacked"** button (usually top-left).
     * Select the *entire project folder* you unzipped.
-5.  **You're Ready!** The FlowMentor AI icon will appear in your toolbar. Pin it for easy access, and right-click on any page to use its tools.
+5.  **Ready to Use:** The FlowMentor AI icon should appear in your toolbar. Pin it for easy access. Click the icon or right-click on webpages to start using the mentor.
 
 ## Features in Detail
 
 ### 1. The Conversational Mentor (Main Chat)
 
-This is the main chat window in the sidebar.
-* **Smart Project Analysis:** When you send your first message (like "a PYQ portal in Django"), it analyzes it, identifies the stack ("Django"), and saves it for the conversation.
-* **Project Architecture Overview:** It provides a "text-based flowchart," explaining in simple terms how the frontend, backend, database, and hosting all connect for your specific project.
-* **Contextual Follow-up:** Every question you ask after that (like "how do I write a view?") is answered with the correct "Django" context.
+Accessed by clicking the extension icon or right-clicking a page and selecting "Chat about this page".
+* **Smart Project Analysis:** On the first message in a new session (when not in "page chat" mode), it analyzes your project idea/code, detects the primary tech stack (e.g., Python/Flask), saves it, and generates a response.
+* **Architecture & Plan:** It provides a "text-based flowchart," and overview explaining in simple terms how the frontend, backend, database, and hosting all connect for your specific project.
+* **Contextual Follow-up:** The AI remembers the detected stack (or page context if started via right-click) for relevant answers to subsequent questions within that session.
 
-### 2. The 5-Tool Right-Click Menu
+### 2. The Right-Click Context Menu
 
-This is the "no copy-paste" solution. Highlight text on any webpage and right-click to access:
+Provides instant actions on selected text or the page itself:
 
-1.  **FlowMentor: Analyze this page's tech:**
-    * This is a general tool (doesn't require highlighting text). It reads the page's HTML to give you its best guess on the **Frontend** (like React, Vue) and **Backend** (like Django, WordPress).
-2.  **FlowMentor: Ask about this code:**
-    * Your personal, beginner-friendly debugger. It explains any highlighted code snippet in simple, step-by-step terms.
-3.  **FlowMentor: Get code for this:**
-    * An AI code generator. You can highlight text like "a dark-themed login form" and it will generate the HTML, CSS, and JS for it.
-4.  **FlowMentor: Ask about this (with page context):**
-    * This is the "Smart Analyzer" that changes its job:
-    * **On YouTube:** It becomes a **YouTube Summarizer**, using the title and description to answer your questions.
-    * **On a Hackathon Page:** It becomes a **Brainstorming Partner**.
-    * **On a Long Article:** It becomes a **Summarizer**.
-5.  **FlowMentor: Translate this:**
-    * An instant-access translator. It translates any highlighted text into the language you've selected from the sidebar dropdown.
+1.  **Explain this code (with flowchart):** Analyzes the selected code, explains its function and technical terms in simple language, provides a text-based flowchart visualizing the code's logic, and gives an example.
+2.  **Debug this (with page context):** Analyzes selected code or an error message, using the full page text for context. It provides the corrected code snippet, pinpoints the location of the fix, and explains the type of error clearly.
+3.  **Get code for this:** Generates foundational HTML, CSS, and JavaScript based on a highlighted natural language description (e.g., "a simple contact form"), along with instructions on how to use the generated files.
+4.  **Ask about selection (with page context):** Sends the selected text *and* the page context to the AI, which intelligently adapts: summarizes YouTube videos (based on description), brainstorms hackathon ideas, summarizes long paragraphs, or answers specific questions using the page for context.
+5.  **Translate this:** Translates the selected text into the language chosen in the sidebar's language dropdown.
+6.  **Chat about this page:** Opens the sidebar, automatically loads the page's text content as context (`currentPageContext`), displays a confirmation message, and waits for the user to ask questions about the page in the chat input.
 
-### 3. Polished UI
-* **Dark / Light Mode:** A persistent theme toggle (using `chrome.storage.local`) that respects your choice.
-* **Clean, Readable UI:** Built with larger fonts and a modern chat interface for readability.
+### 3. Sidebar Action Buttons
+
+Offer page-level analysis initiated from the sidebar:
+
+1.  **Analyze Tech:** Fetches the current page's HTML source, sends it to the AI, and displays an analysis guessing the frontend framework and backend technology, along with explanations for its reasoning.
+2.  **Summarize Page:** Fetches the current page's text content, sends it to the AI, and displays a concise summary covering all main sections/headings with key terms bolded.
+3.  **Page Flowchart:** Fetches the current page's text content, sends it to the AI, and displays a text-based flowchart visualizing the flow of *concepts or ideas* presented on the page, formatted for easy understanding.
+
+### 4. Polished UI/UX
+* **Multiple Themes:** Light, Dark, Purple, Synthwave, and Minty themes selectable via a dropdown, with the choice saved locally.
+* **Clean Interface:** Uses CSS variables for theming, larger fonts, clear layout, and styled chat bubbles/code blocks for a professional and accessible experience.
 
 ## Privacy and Security
 
-Your privacy is paramount.
-* **No Chat History Saved:** Your conversation history is stored in a temporary variable and is **deleted** every time you close the sidebar.
-* **Local Storage:** The only data saved locally is your theme preference (Light/Dark) and your current `projectStack` (which is cleared when you start a new project chat).
-* **Secure API Calls:** Your API key is stored only on your computer in the `sidebar.js` file and is sent directly to Google's secure API endpoint with every request. It is never shared with any other service.
+User privacy was a key consideration:
+* **No Server-Side History:** Conversation history (`conversationHistory` array) exists only in the sidebar's temporary JavaScript memory and is cleared when the sidebar is closed or a new context menu/button action begins a single-turn task.
+* **Minimal Local Storage:** Temporary task data passed from the background script is cleared immediately after being processed by the sidebar. The detected `projectStack` is also cleared when starting a new project analysis.
+* **Secure API Calls:** The Google Gemini API key you add during setup stays on your computer inside the extension's code (sidebar.js). It's only sent directly and securely to Google when the AI needs to generate a response. Your key is never sent anywhere else..
 
 ## Troubleshooting
 
-* **Extension Not Working / API Error:**
-    1.  Make sure you have correctly pasted your Gemini API key into `sidebar.js`.
-    2.  Make sure the `host_permissions` in `manifest.json` is set to `"https://generativelanguage.googleapis.com/"`.
-* **Right-Click Menu Not Working:**
-    1.  After installing, try reloading the webpage you are on.
-    2.  Go to `chrome://extensions` and click the "Reload" icon for the FlowMentor extension.
+* **Extension Not Working / API Errors:**
+    1.  **Verify API Key:** Ensure the Google Gemini API key is correctly pasted into the `YOUR_API_KEY` variable in `sidebar.js`. Check for typos or extra characters.
+    2.  **Check API Key Status:** Visit Google AI Studio to ensure the API key is active and hasn't exceeded any quotas.
+    3.  **Host Permissions:** Confirm `manifest.json` includes `"https://generativelanguage.googleapis.com/"` under `host_permissions`.
+    4.  **Reload Extension:** Go to `chrome://extensions` and click the reload icon for FlowMentor AI. Also try restarting Chrome.
+    5.  **Check Console:** Right-click the sidebar and select "Inspect". Check the "Console" tab for specific JavaScript errors.
+* **Right-Click Menu / Buttons Not Working:**
+    1.  **Reload Page:** Try refreshing the webpage you are on.
+    2.  **Reload Extension:** As above, reload the extension via `chrome://extensions`.
+    3.  **Restricted Pages:** Remember the extension cannot access content on `chrome://` pages, the Chrome Web Store, or some other restricted domains due to security policies. Check the console for permission errors.
 
 ## License
 
