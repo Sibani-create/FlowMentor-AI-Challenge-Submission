@@ -42,7 +42,7 @@ To run this extension, you will need:
 1.  The Google Chrome browser.
 2.  A **Google Gemini API Key**. A free key can be obtained from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-## Installation (Instructions for Judges)
+## Installation
 
 1.  **Download:** Click the green `<> Code` button on this repository and select `Download ZIP`.
 2.  **Unzip:** Extract the downloaded folder to a convenient location.
